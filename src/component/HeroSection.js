@@ -1,20 +1,16 @@
 import { Box, Typography } from '@mui/material'
 import React from 'react'
 
-import styles from "./HeroSection.css";
+import styles from "./HeroSection.module.css";
 
 const HeroSection = () => {
-  return (
-    <>
-    
-        <Box sx={{display:"flex", justifyContent:"center", alignContent:"center", marginTop:"50px", width:"100%", height:"100%", position:"relative"}}>
-            <Box src={"/Assets/logo.png"} component={"img"} sx={{width:"50px", height:"50px"}}>
-
-            </Box>
-            <Typography className={styles.para_color}>hello</Typography>
-        </Box>        
-    </>
-  )
+    return (
+        <Box className={styles.hero_section}>
+          
+          <Typography>How Can I Help You Today?</Typography>
+          <Box src={"/Assets/logo.png"} component={"img"} className={styles.logo_img}></Box>
+        </Box>
+    )
 }
 
 export default HeroSection

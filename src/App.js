@@ -1,18 +1,24 @@
 import React from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import BotAi from './BotAi'
 import Conversation from './Conversation'
+import { Box } from '@mui/material'
+import Sidebar from './Sidebar'
+import ShowResult from './component/ShowResult'
 
 
 const App = () => {
   return (
     <>
-      <BrowserRouter>
+
+      <Box sx={{ display: "flex", }} >
+        <Sidebar/>
         <Routes>
           <Route path='/' element={<BotAi />} />
+          <Route path='/searchresult' element={<ShowResult />} />
           <Route path='/conversation' element={<Conversation />} />
         </Routes>
-      </BrowserRouter>
+      </Box>
     </>
   )
 }

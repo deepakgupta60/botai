@@ -1,8 +1,11 @@
+import { Box, Typography } from '@mui/material'
 import React from 'react'
 
 const Conversation = () => {
   return (
-    <div>Conversation</div>
+   <Box sx={{marginTop:"100px", marginLeft:"20px"}}>
+      asdfasdf
+   </Box>
   )
 }
 
