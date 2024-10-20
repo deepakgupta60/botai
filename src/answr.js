@@ -12,6 +12,8 @@ function App() {
   const [ratingIdx, setRatingIdx] = useState(null); // Index for 5-star rating
   const [rating, setRating] = useState(0); // Star rating
 
+
+  
   const handleInput = (e) => {
     setUserInput(e.target.value);
   };

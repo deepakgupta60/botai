@@ -13,9 +13,9 @@ const SearchInput = () => {
 
     const navigate = useNavigate();
     const handleSearch = () => {
+        setSearchInputText(localInput)
         navigate("/searchresult")
         // console.log(localInput)
-        setLocalInput(localInput)
     }
 
 
