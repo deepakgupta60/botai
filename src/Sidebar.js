@@ -14,6 +14,11 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+
+
+
 
 const drawerWidth = 200;
 
@@ -21,6 +26,8 @@ function Sidebar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
+
+  const navigate = useNavigate();
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -37,21 +44,17 @@ function Sidebar(props) {
     }
   };
 
+
+const navigateToSaved=()=>{
+  navigate("/conversation")
+}
+  
   const drawer = (
     <div>
       <Toolbar />
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                 <InboxIcon /> 
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+      <Button onClick={navigateToSaved}>
+    Saved Conversation
+      </Button>
      
     </div>
   );
@@ -84,7 +87,7 @@ function Sidebar(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Responsive drawer
+            ChatBot
           </Typography>
         </Toolbar>
       </AppBar>

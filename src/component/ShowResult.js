@@ -3,6 +3,8 @@ import React, { useContext, useState } from 'react'
 import { SearchContext } from '../SearchProvider'
 import StarIcon from "@mui/icons-material/Star";
 import data from ".././sampleData.json";
+import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt"
+import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt"
 
 
 
@@ -14,24 +16,6 @@ const ShowResult = () => {
   const [showRating, setShowRating] = useState(false) // for show rating when click thumb up
   const [openModel, setOpneModel] = useState(false) // open a feedback model when click on thumb down
   const [feedback, setFeedback] = useState(''); // storing feedback
-
-
-
-
-
-  const handleThumbUp = () => {
-
-  }
-
-
-  const handleThumbDown = () => {
-
-  }
-
-  const handleRating = (ratingValue) => {
-    setRating(ratingValue)
-  }
-
 
 
   const handleSearch = () => {
@@ -60,6 +44,34 @@ const ShowResult = () => {
 
   const handleSave = () => {
 
+    const conversation = {
+      chatHistory,
+      rating,
+      feedback
+    }
+    localStorage.setItem('conversation', JSON.stringify(conversation))
+    alert("Successfully Saved");
+  }
+
+
+
+
+  const handleThumbUp = () => {
+    setShowRating(true)
+    setOpneModel(false)
+
+  }
+
+
+  const handleThumbDown = () => {
+
+    setOpneModel(true)
+    setShowRating(false)
+
+  }
+
+  const handleRating = (ratingValue) => {
+    setRating(ratingValue)
   }
 
 
@@ -68,13 +80,23 @@ const ShowResult = () => {
   }
 
   return (
-    <Box sx={{ marginTop: "100px" }}>
+    <Box sx={{ padding: '20px', marginTop: '50px' }}>
 
       {/* Chat showing section */}
-      <Box>
+      <Box
+
+        sx={{
+          border: '1px solid #ccc',
+          borderRadius: '10px',
+          padding: '10px',
+          height: '300px',
+          overflowY: 'scroll',
+          marginBottom: '20px',
+        }}
+      >
         {chatHistory.length > 0 && chatHistory.map((data, idx) => (
           <Box key={idx}>
-            <Typography sx={{ fontWeight: data.sender === "user" ? 'bold' : 'nornal' }}>
+            <Typography variant="body1" sx={{ fontWeight: data.sender === 'user' ? 'bold' : 'normal' }}>
               {data.message}
             </Typography>
 
@@ -82,13 +104,23 @@ const ShowResult = () => {
             {
               data.sender === "bot" && (
 
-                <Box sx={{ display: "flex", alignItems: "center", marginTop: "10px", cursor: "pointer" }}>
-                  <Button onClick={handleThumbUp}>
-                    Rating
-                  </Button>
-                  <Button onClick={handleThumbDown}>
-                    Feedbakc
-                  </Button>
+                <Box
+
+
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginTop: '10px',
+                    cursor: 'pointer',
+                  }}
+
+                >
+                  <IconButton onClick={handleThumbUp}>
+                    <ThumbUpAltIcon color="primary" Rating />
+                  </IconButton>
+                  <IconButton onClick={handleThumbDown}>
+                    <ThumbDownAltIcon color='error' />
+                  </IconButton>
                 </Box>
               )
             }
@@ -96,18 +128,24 @@ const ShowResult = () => {
             {showRating && data.sender === "bot" && (
               <Box sx={{ display: 'flex', marginTop: "10px" }}>
                 {
-                  [1, 2, 3, 4, 5].map((star) => (
-                    <IconButton key={star} onClick={() => handleRating(star)}>
-                      <StarIcon color={rating >= star ? 'primary' : 'disabled'} />
-                    </IconButton>
-                  ))
+
+                  <Box sx={{ display: "flex", marginTop: "10px" }}>
+
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <IconButton key={star} onClick={() => handleRating(star)}>
+                        <StarIcon color={rating >= star ? 'primary' : 'disabled'} />
+                      </IconButton>
+                    ))}
+
+                  </Box>
+
                 }
               </Box>
             )}
 
             {feedback && data.sender === "bot" && (
               <Box sx={{ marginTop: "10px", color: "green" }}>
-                <Typography>
+                <Typography variant='body2'>
                   Feedback: {feedback}
                 </Typography>
               </Box>
@@ -132,10 +170,18 @@ const ShowResult = () => {
 
           <Grid2 size={{ xs: 12, md: 4, lg: 4 }}>
             <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-              <Button onClick={handleSearch}>
+              <Button onClick={handleSearch}
+
+                variant='contained'
+                sx={{ width: "50%", marginLeft: "15px", marginRight: "15px" }}
+              >
                 Ask
               </Button>
-              <Button onClick={handleSave}>
+              <Button onClick={handleSave}
+
+                variant='contained'
+                sx={{ width: "50%", marginLeft: "15px", marginRight: "15px" }}
+              >
                 Save
               </Button>
             </Box>
@@ -147,16 +193,42 @@ const ShowResult = () => {
 
 
         <Modal open={openModel} onClose={() => setOpneModel(false)}>
-          <Box>
-            <Typography>
+          <Box
+          
+          
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 400,
+            bgcolor: 'background.paper',
+            borderRadius: '8px',
+            boxShadow: 24,
+            p: 4,
+        }}
+
+          >
+            <Typography variant='h6' gutterBottom>
               Provide Feedback
             </Typography>
-            <TextField value={feedback} />
+
+            <TextField 
+            value={feedback}
+            label="Your Feedback"
+            variant='outlined'
+            fullWidth
+            multiline
+            rows={4}
             onChange={(e) => setFeedback(e.target.value)}
+             />
 
-            <Box>
+            <Box 
+            
+            sx={{marginTop:"20px", textAlign:"right"}}
+            >
 
-              <Button onClick={handleSubmitFeedback}>
+              <Button onClick={handleSubmitFeedback} variant='contained' color="primary">
 
                 Submit Feedback
 
