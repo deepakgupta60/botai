@@ -7,13 +7,16 @@ import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 
 const ShowResult = () => {
-  const { searchInputText } = useContext(SearchContext); // fetching from context
-  const [localInput, setLocalInput] = useState(() => searchInputText || ''); // local input question
-  const [chatHistory, setChatHistory] = useState([]); // for storing chat history
-  const [openModel, setOpneModel] = useState(false); // open a feedback model when click on thumb down
-  const [feedback, setFeedback] = useState(''); // storing feedback
+  const { searchInputText } = useContext(SearchContext); 
+  
+  const [localInput, setLocalInput] = useState(() => searchInputText || ''); 
+  const [chatHistory, setChatHistory] = useState([]); 
+  const [openModel, setOpneModel] = useState(false); 
+  const [feedback, setFeedback] = useState(''); 
   const [currentMessageIndex, setCurrentMessageIndex] = useState(null);
 
+
+  // faltu code
   useEffect(() => {
     if(searchInputText)
     {
@@ -36,9 +39,9 @@ const ShowResult = () => {
       const botResponse = {
         sender: "bot",
         message: result ? result.response : "Sorry, I couldn't find the answer to that question",
-        feedback: '', // feedback for this specific message
-        rating: 0, // rating for this specific message
-        showRating: false, // flag to control rating visibility for this specific message
+        feedback: '',
+        rating: 0,
+        showRating: false, // for showing rating
       };
 
       setChatHistory((prevChat) => [...prevChat, botResponse]);
@@ -91,7 +94,6 @@ const ShowResult = () => {
 
   return (
     <Box sx={{ padding: '20px', marginTop: '50px' }}>
-      {/* Chat showing section */}
       <Box
         sx={{
           border: '1px solid #ccc',
@@ -126,7 +128,6 @@ const ShowResult = () => {
               </Box>
             )}
 
-            {/* Show rating if showRating is true */}
             {data.showRating && data.sender === "bot" && (
               <Box sx={{ display: 'flex', marginTop: "10px" }}>
                 {[1, 2, 3, 4, 5].map((star) => (
@@ -137,7 +138,6 @@ const ShowResult = () => {
               </Box>
             )}
 
-            {/* Show feedback */}
             {data.feedback && data.sender === "bot" && (
               <Box sx={{ marginTop: "10px", color: "green" }}>
                 <Typography variant='body2'>
@@ -149,7 +149,6 @@ const ShowResult = () => {
         ))}
       </Box>
 
-      {/* search button */}
       <Box>
         <Grid2 container spacing={2}>
           <Grid2 size={{ xs: 12, md: 8, lg: 8 }}>
